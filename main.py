@@ -5,7 +5,7 @@ def main():
 
     secret_word = get_random_word()
     print(secret_word)
-    correct_letters = ["_"] * len(secret_word)
+    correct_letters = ["_"] * (len(secret_word) -1)
     missed_letters = []
 
     while True:
@@ -78,7 +78,7 @@ def update_board(guess, secret_word, correct_letters):
 
 
 def check_win(correct_letters, secret_word):
-    if correct_letters == secret_word:
+    if str(correct_letters) == secret_word:
         return True
 
 
