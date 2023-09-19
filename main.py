@@ -1,16 +1,34 @@
 import random
-import string
-
-
-# def get_guess():
-# check_guess(guess, word)
-# update_missed(guess, missed_letters):
-# update_board(guess, secret_word, correct_letters):
-# check_win(correct_letters, secret_word):
 
 
 def main():
-    print(get_random_word())
+
+    secret_word = get_random_word()
+    print(secret_word)
+    correct_letters = ["_"] * len(secret_word)
+    missed_letters = []
+
+    while True:
+
+        display_board(missed_letters, correct_letters)
+
+        guess = get_guess()
+
+        if guess in missed_letters or guess in correct_letters:
+            print("You already guessed that letter!")
+            continue
+
+        if guess in secret_word:
+            correct_letters = update_board(guess, secret_word, correct_letters)
+        else:
+            missed_letters = update_missed(guess, missed_letters)
+
+        if check_win(correct_letters, secret_word):
+            print("You won!")
+            break
+
+    print("The word was", secret_word)
+
 
 
 def get_random_word():
@@ -22,32 +40,47 @@ def get_random_word():
     return random_word
 
 
-def display_board(missed_char, correct_char):
-    m_char = []
-    c_char = []
+def display_board(missed_letters, correct_letters):
+    print("Missed letters:", end=" ")
+    for letter in missed_letters:
+        print(letter, end=" ")
+    print()
 
-    for char in missed_char:
-        m_char.append(char)
-
-    for char in correct_char:
-        c_char.append(char)
-
-    return m_char, c_char
+    for letter in correct_letters:
+        print(letter, end=" ")
+    print()
 
 
 def get_guess():
     while True:
-        char_guess = input("Guess a letter")
+        char_guess = input("Guess a letter: ")
         if len(char_guess) == 1:
             return char_guess
-        print("Please only enter one character")
+        print("Please only enter one character: ")
 
 
 def check_guess(guess, word):
     if guess in word:
         return True
-    else:
-        return False
+
+
+def update_missed(guess, missed_letters):
+    if guess not in missed_letters:
+        missed_letters.append(guess)
+    return missed_letters
+
+
+def update_board(guess, secret_word, correct_letters):
+    for i in range(len(secret_word)):
+        if guess == secret_word[i]:
+            correct_letters[i] = guess
+    return correct_letters
+
+
+def check_win(correct_letters, secret_word):
+    if correct_letters == secret_word:
+        return True
+
 
 
 if __name__ == "__main__":
