@@ -35,5 +35,17 @@ def display_board(missed_char, correct_char):
     return m_char, c_char
 
 
+def get_guess():
+
+    while True:
+        char_guess = input("Guess a letter")
+        if len(char_guess) == 1:
+            return char_guess
+        print("Please only enter one character")
+
+
+
+
+
 if __name__ == "__main__":
     main()
