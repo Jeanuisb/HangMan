@@ -1,33 +1,39 @@
 import random
-
-counter = 0
-lineNumber = random.randint(0, 10001)
-
-f = open("words.txt", "r")
-words = f.readlines()  # open and read the file
-
-lengthOfWord = len(words[lineNumber])  # find the length of the random word
-
-guessLength = []
-for lengthOfWord in words[lineNumber]:  # create necessary lines for the word
-    guessLength.append("_")
-guessLength.pop()  # there was an extra "_"
+import string
 
 
-print("Lets play Hangman! Your letter is", len(words[lineNumber]), "words long.\n")
-
-userGuess = input("Enter a letter: ")
-while counter != 3:
-    for i in range(len(words[lineNumber])):
-        if words[lineNumber] == userGuess:
-            print(i)
-            print(" The letter", userGuess, " is there")
-        else:
-            counter += 1
-            print("you have chosen wrong", counter)
-            userGuess = input("Enter a letter: ")
+# def get_guess():
+# check_guess(guess, word)
+# update_missed(guess, missed_letters):
+# update_board(guess, secret_word, correct_letters):
+# check_win(correct_letters, secret_word):
 
 
-print(words[lineNumber])
-print(*guessLength)
+def main():
+    print(get_random_word())
 
+
+def get_random_word():
+    f = open("words.txt", "r")
+    words = f.readlines()  # open and read the file
+
+    random_word = random.choice(words)
+
+    return random_word
+
+
+def display_board(missed_char, correct_char):
+    m_char = []
+    c_char = []
+
+    for char in missed_char:
+        m_char.append(char)
+
+    for char in correct_char:
+        c_char.append(char)
+
+    return m_char, c_char
+
+
+if __name__ == "__main__":
+    main()
