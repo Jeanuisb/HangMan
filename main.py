@@ -5,10 +5,14 @@ def main():
 
     secret_word = get_random_word()
     print(secret_word)
-    correct_letters = ["_"] * (len(secret_word) -1)
+
+    correct_letters = ["_"] * (len(secret_word) - 1)
     missed_letters = []
 
+
     while True:
+        print("cl: ", ''.join(correct_letters))
+        print("sw: ", secret_word)
 
         display_board(missed_letters, correct_letters)
 
@@ -24,9 +28,9 @@ def main():
             missed_letters = update_missed(guess, missed_letters)
 
         if check_win(correct_letters, secret_word):
-            print("You won!")
             break
 
+    print("You win!")
     print("The word was", secret_word)
 
 
@@ -78,7 +82,7 @@ def update_board(guess, secret_word, correct_letters):
 
 
 def check_win(correct_letters, secret_word):
-    if str(correct_letters) == secret_word:
+    if ''.join(correct_letters).__eq__(secret_word):
         return True
 
 
