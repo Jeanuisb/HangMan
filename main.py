@@ -36,8 +36,8 @@ def main():
 
 
 def get_random_word():
-    f = open("words.txt", "r")
-    words = f.readlines()  # open and read the file
+    with open("words.txt", "r") as f:
+        words = f.readlines()  # open and read the file
 
     random_word = random.choice(words)
 
